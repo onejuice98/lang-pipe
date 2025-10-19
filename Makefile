@@ -1,4 +1,4 @@
-.PHONY: fmt lint type test all
+.PHONY: fmt lint type test clean all
 fmt:
 	uv run ruff format .
 lint:
@@ -7,4 +7,6 @@ type:
 	uv run mypy src/langpipe
 test:
 	uv run pytest
-all: fmt lint type test
+clean:
+	rm -rf __pycache__ .ruff_cache .mypy_cache .pytest_cache .coverage
+all: fmt lint type test clean
