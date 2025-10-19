@@ -1,9 +1,52 @@
 [project]
 name = "lang-pipe"
 version = "0.1.0"
-description = "Add your description here"
+description = "Develop LangChain/LangGraph Pipeline"
 readme = "README.md"
 requires-python = ">=3.10.13"
 license = {text = "MIT"}
 authors = [{name="onejuice98"}]
-dependencies = []
+dependencies = [
+    "langchain-core>=1.0.0",
+    "langgraph>=1.0.0",
+    "pydantic>=2.12.3",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18.2",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.14.1",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E","F","I","UP","B","SIM","RET","C4","RUF"]
+ignore = ["E203","E266","E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_configs = true
+disallow_any_generics = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+exclude = ["tests/fixtures"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-q --cov=langpipe --cov-report=term-missing"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["langpipe"]
